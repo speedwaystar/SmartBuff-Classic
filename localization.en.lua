@@ -4,11 +4,9 @@
 
 -- Whats new info
 SMARTBUFF_WHATSNEW = "|cffffffffWhats new:|r\n\n"
-  .."- Fixed Shaman charges issue, please set the slider to 1 again.\n\n"
-  .."- Fixed (hopefully) re-applying poisons issue.\n\n"
-  .."- Changed buff threshold value usage for mana. If it is below 100, it is used in percent.\n\n"
-  .."- Added LibClassicDurations support\n\n"
-  .."- Added group buff support and mini group display in raid (Beta phase).\n\n"
+  .."- Fixed (hopefully again) re-applying poisons issue.\n\n"
+  .."- Added Soulstones and Healthstones.\n\n"
+  .."- Added Omen of Clarity, Shadowform, Blessing of Light.\n\n"
   .."- Note: SmartBuff is still under heavy development to restore WoW classic functionality.\n\n"
   .."- Known issues:\n"
   .."* Greater group/raid buffs are not working, this needs major rework -> in progress\n"

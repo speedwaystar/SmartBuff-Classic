@@ -40,7 +40,7 @@ GameTooltip:SetUnitDebuff("unit", [index] or ["name", "rank"][, "filter"]);
 * The untilCanceled return value is true if the buff doesn't have its own duration (e.g. stealth)
 ]]--
 
-SMARTBUFF_VERSION       = "v1.13.2c";
+SMARTBUFF_VERSION       = "v1.13.2d";
 SMARTBUFF_VERSIONNR     = 11302;
 SMARTBUFF_TITLE         = "SmartBuff";
 SMARTBUFF_SUBTITLE      = "Supports you in cast buffs";
@@ -3195,15 +3195,18 @@ function SMARTBUFF_CountReagent(reagent, chain)
   local id = nil;
   local bag = 0;
   local slot = 0;
-  local tmpItem, itemName, count;
+  local itemLink, itemName, count;
   if (chain == nil) then chain = { reagent }; end
   for bag = 0, NUM_BAG_FRAMES do
     for slot = 1, GetContainerNumSlots(bag) do
-      tmpItem = GetContainerItemLink(bag, slot);      
-      if (tmpItem ~= nil) then
+      itemLink = GetContainerItemLink(bag, slot); 
+      if (itemLink ~= nil) then
+        itemName = string.match(itemLink, "%[.-%]");
+        --print(bag, slot, itemName);
         for i = 1, #chain, 1 do
           --print(chain[i]);
-          if (chain[i] and string.find(tmpItem, "["..chain[i].."]", 1, true)) then
+          if (chain[i] and string.find(itemName, chain[i], 1, true)) then
+          --if (chain[i] and string.find(itemLink, "["..chain[i].."]", 1, true)) then
             --print("Item found: "..chain[i]);
             _, count = GetContainerItemInfo(bag, slot);
             id = GetContainerItemID(bag, slot);
@@ -3229,16 +3232,21 @@ function SMARTBUFF_FindItem(reagent, chain)
   local n = 0;
   local bag = 0;
   local slot = 0;
-  local tmpItem, itemName, texture, count;
+  local itemLink, itemName, texture, count;
   if (chain == nil) then chain = { reagent }; end
   for bag = 0, NUM_BAG_FRAMES do
     for slot = 1, GetContainerNumSlots(bag) do
-      tmpItem = GetContainerItemLink(bag, slot);
-      if (tmpItem ~= nil) then
-        --SMARTBUFF_AddMsgD("Reagent found: " .. tmpItem);
+      itemLink = GetContainerItemLink(bag, slot);
+      if (itemLink ~= nil) then
+        --itemName = string.match(itemLink, "item[%-?%d:]+");
+        --itemName = string.match(itemLink, "|h%[.*%]|h");
+        itemName = string.match(itemLink, "%[.-%]");
+        --print(bag, slot, itemName);
+        --SMARTBUFF_AddMsgD("Reagent found: " .. itemLink);
         for i = 1, #chain, 1 do
           --print(chain[i]);
-          if (chain[i] and string.find(tmpItem, "["..chain[i].."]", 1, true)) then
+          if (chain[i] and string.find(itemName, chain[i], 1, true)) then
+          --if (chain[i] and string.find(itemLink, "["..chain[i].."]", 1, true)) then
             --print("Item found: "..chain[i]);
             texture, count = GetContainerItemInfo(bag, slot);
             return bag, slot, count, texture;
@@ -4705,7 +4713,8 @@ function SMARTBUFF_OnPreClick(self, button, down)
   
   -- *** TODO: Check for classic **********************************************************************************
   local casting = UnitCastingInfo("player") or UnitChannelInfo("player");
-  if (casting) then
+  --print(casting);
+  if (casting ~= nil) then
     --print("Casting", casting, "-> Reset AutoBuff timer");
     tAutoBuff = GetTime() + 0.7;
     return;

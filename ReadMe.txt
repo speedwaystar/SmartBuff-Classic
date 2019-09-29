@@ -163,6 +163,10 @@ aeldra@sonnenkinder.org
 Changes: 
 Rev     Date        Description
 ------  ----------  -----------------------
+1.13.2d 2019-09-27  Fixed (hopefully again) re-applying poisons issue
+                    Added Soulstones and Healthstones
+					Added Omen of Clarity, Shadowform, Blessing of Light
+
 8.0f	2018-07-25	Fixes for Battle for Azeroth Pre-Patch
 					Updated buffs
 					Fixed ToyBox
