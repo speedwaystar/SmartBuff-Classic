@@ -135,6 +135,8 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_FIRESTONE5          = GetItemInfo(40773); --"Master Firestone"
   SMARTBUFF_FIRESTONE6          = GetItemInfo(41173); --"Fel Firestone"
   SMARTBUFF_FIRESTONE7          = GetItemInfo(41174); --"Grand Firestone"
+  SMARTBUFF_MANAAGATE			      = GetItemInfo(5514) -- Mana Agate
+
   
   -- Poisons
   SMARTBUFF_INSTANTPOISON1      = GetItemInfo(6947);  --"Instant Poison"
@@ -218,9 +220,13 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_DIRGESKICKINCHIMAEROKCHOPS = GetItemInfo(21023); --"Dirge's Kickin' Chimaerok Chops"
   
   -- Conjured mage food IDs
-  SMARTBUFF_CONJUREDMANA        = GetItemInfo(113509); --"Conjured Mana Buns"
-  S.FoodMage = GetItems({113509, 80618, 80610, 65499, 43523, 43518, 34062, 65517, 65516, 65515, 65500, 42955});
+  --SMARTBUFF_CONJUREDMANA        = GetItemInfo(113509); --"Conjured Mana Buns"
+  SMARTBUFF_CONJUREDWATER3		  = GetItemInfo(2136) -- Conjured Purified Water
+  SMARTBUFF_CONJUREDFOOD3		    = GetItemInfo(1114) -- Conjured Rye
   
+  S.MageFood = { SMARTBUFF_CONJUREDFOOD3 }
+  S.MageWater = { SMARTBUFF_CONJUREDWATER3 }
+
   -- Scrolls
   SMARTBUFF_SOAGILITY1          = GetItemInfo(3012);  --"Scroll of Agility I"
   SMARTBUFF_SOAGILITY2          = GetItemInfo(1477);  --"Scroll of Agility II"
@@ -357,66 +363,182 @@ end
 function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_TESTSPELL       = GetSpellInfo(774);
   
-  -- Druid  
+    -- Druid  
   SMARTBUFF_DRUID_CAT       = GetSpellInfo(768);   --"Cat Form"
-  SMARTBUFF_DRUID_TREE      = GetSpellInfo(33891); --"Tree of Life"
+  SMARTBUFF_DRUID_TREE      = GetSpellInfo(33891); --"Incarnation: Tree of Life"
+  SMARTBUFF_DRUID_TREANT    = GetSpellInfo(114282);--"Treant Form"
   SMARTBUFF_DRUID_MOONKIN   = GetSpellInfo(24858); --"Moonkin Form"
+  --SMARTBUFF_DRUID_MKAURA    = GetSpellInfo(24907); --"Moonkin Aura"
   SMARTBUFF_DRUID_TRACK     = GetSpellInfo(5225);  --"Track Humanoids"
-  SMARTBUFF_MOTW            = GetSpellInfo(1126);  --"Mark of the Wild"
-  SMARTBUFF_GOTW            = GetSpellInfo(21849); --"Gift of the Wild"
-  SMARTBUFF_THORNS          = GetSpellInfo(467);   --"Thorns"
-  SMARTBUFF_IMPTHORNS       = GetSpellInfo(16836); --"Improved Thorns"
+  --SMARTBUFF_MOTW            = GetSpellInfo(1126);  --"Mark of the Wild"
   SMARTBUFF_BARKSKIN        = GetSpellInfo(22812); --"Barkskin"
-  SMARTBUFF_NATURESGRASP    = GetSpellInfo(16689); --"Nature's Grasp"
   SMARTBUFF_TIGERSFURY      = GetSpellInfo(5217);  --"Tiger's Fury"
-  SMARTBUFF_SAVAGEROAR      = GetSpellInfo(52610); --"Savage Roar"  
-  SMARTBUFF_OMENOFCLARITY   = GetSpellInfo(16864); --"Omen of Clarity"  
+  SMARTBUFF_SAVAGEROAR      = GetSpellInfo(52610); --"Savage Roar"
+  SMARTBUFF_CENARIONWARD    = GetSpellInfo(102351);--"Cenarion Ward"
+  SMARTBUFF_DRUID_BEAR      = GetSpellInfo(5487);  --"Bear Form"
 
-  -- Druid linked
-  S.LinkDruidThorns = { SMARTBUFF_THORNS, SMARTBUFF_IMPTHORNS };
+  -- Classic "Mark of the Wild" Ranks
+  SMARTBUFF_MOTWR1            = GetSpellInfo(1126);  --"Mark of the Wild (Rank 1)"
+  SMARTBUFF_MOTWR2            = GetSpellInfo(5232);  --"Mark of the Wild (Rank 2)"
+  SMARTBUFF_MOTWR3            = GetSpellInfo(6756);  --"Mark of the Wild (Rank 3)"
+  SMARTBUFF_MOTWR4            = GetSpellInfo(5234);  --"Mark of the Wild (Rank 4)"
+  SMARTBUFF_MOTWR5            = GetSpellInfo(8907);  --"Mark of the Wild (Rank 5)"
+  SMARTBUFF_MOTWR6            = GetSpellInfo(9884);  --"Mark of the Wild (Rank 6)"
+  SMARTBUFF_MOTWR7            = GetSpellInfo(9885);  --"Mark of the Wild (Rank 7)"
+
+  -- Classic "Gift of the Wild" Ranks
+  SMARTBUFF_GOTWR1            = GetSpellInfo(21849);  --"Gift of the Wild (Rank 1)"
+  SMARTBUFF_GOTWR2            = GetSpellInfo(21850);  --"Gift of the Wild (Rank 2)"
+
+  -- Classic "Thorns" Ranks
+  SMARTBUFF_THORNSR1            = GetSpellInfo(467);  --"Thorns (Rank 1)"
+  SMARTBUFF_THORNSR2            = GetSpellInfo(782);  --"Thorns (Rank 2)"
+  SMARTBUFF_THORNSR3            = GetSpellInfo(1075);  --"Thorns (Rank 3)"
+  SMARTBUFF_THORNSR4            = GetSpellInfo(8914);  --"Thorns (Rank 4)"
+  SMARTBUFF_THORNSR5            = GetSpellInfo(9756);  --"Thorns (Rank 5)"
+  SMARTBUFF_THORNSR6            = GetSpellInfo(9910);  --"Thorns (Rank 6)"
+
+  -- Classic "Nature's Grasp" Ranks
+  SMARTBUFF_NGRASPR1            = GetSpellInfo(16689);  --"Nature's Grasp (Rank 1)"
+  SMARTBUFF_NGRASPR2            = GetSpellInfo(16810);  --"Nature's Grasp (Rank 2)"
+  SMARTBUFF_NGRASPR3            = GetSpellInfo(16811);  --"Nature's Grasp (Rank 3)"
+  SMARTBUFF_NGRASPR4            = GetSpellInfo(16812);  --"Nature's Grasp (Rank 4)"
+  SMARTBUFF_NGRASPR5            = GetSpellInfo(16813);  --"Nature's Grasp (Rank 5)"
+  SMARTBUFF_NGRASPR6            = GetSpellInfo(17329);  --"Nature's Grasp (Rank 6)"
+
+  -- Classic "Improved Thorns" Ranks
+  SMARTBUFF_IMPTHORNSR1            = GetSpellInfo(16836);  --"Improved Thorns (Rank 1)"
+  SMARTBUFF_IMPTHORNSR2            = GetSpellInfo(16839);  --"Improved Thorns (Rank 2)"
+  SMARTBUFF_IMPTHORNSR3            = GetSpellInfo(16840);  --"Improved Thorns (Rank 3)"
+
+  -- Classic Druid links
+  S.LinkDruid = { SMARTBUFF_THORNSR1, SMARTBUFF_THORNSR2, SMARTBUFF_THORNSR3, SMARTBUFF_THORNSR4, SMARTBUFF_THORNSR5, SMARTBUFF_THORNSR6, 
+                  SMARTBUFF_IMPTHORNSR1, SMARTBUFF_IMPTHORNSR2, SMARTBUFF_IMPTHORNSR3,
+                  };
 
   
-  -- Priest
-  SMARTBUFF_PWF             = GetSpellInfo(1243);  --"Power Word: Fortitude"
-  SMARTBUFF_POF             = GetSpellInfo(21562); --"Prayer of Fortitude"
-  SMARTBUFF_SP              = GetSpellInfo(976);   --"Shadow Protection"
-  SMARTBUFF_POSP            = GetSpellInfo(27683); --"Prayer of Shadow Protection"
-  SMARTBUFF_INNERFIRE       = GetSpellInfo(588);   --"Inner Fire"
-  SMARTBUFF_DS              = GetSpellInfo(14752); --"Divine Spirit"
-  SMARTBUFF_POS             = GetSpellInfo(27681); --"Prayer of Spirit"
+-- Priest
+  SMARTBUFF_PWF             = GetSpellInfo(21562); --"Power Word: Fortitude"
   SMARTBUFF_PWS             = GetSpellInfo(17);    --"Power Word: Shield"
-  SMARTBUFF_SHADOWFORM      = GetSpellInfo(15473); --"Shadowform"
-  SMARTBUFF_FEARWARD        = GetSpellInfo(6346);  --"Fear Ward"
-  SMARTBUFF_ELUNESGRACE     = GetSpellInfo(2651);  --"Elune's Grace"
-  SMARTBUFF_FEEDBACK        = GetSpellInfo(13896); --"Feedback"
-  SMARTBUFF_SHADOWGUARD     = GetSpellInfo(18137); --"Shadowguard"
-  SMARTBUFF_TOUCHOFWEAKNESS = GetSpellInfo(2652);  --"Touch of Weakness"
-  SMARTBUFF_INNERFOCUS      = GetSpellInfo(14751); --"Inner Focus"
+  --SMARTBUFF_FEARWARD        = GetSpellInfo(6346);  --"Fear Ward"
   SMARTBUFF_RENEW           = GetSpellInfo(139);   --"Renew"
+  SMARTBUFF_LEVITATE        = GetSpellInfo(1706);  --"Levitate"
+  SMARTBUFF_SHADOWFORM      = GetSpellInfo(232698); --"Shadowform"
+  SMARTBUFF_VAMPIRICEMBRACE = GetSpellInfo(15286); --"Vampiric Embrace"
+  --SMARTBUFF_LIGHTWELL       = GetSpellInfo(724);   --"Lightwell"
+  --SMARTBUFF_CHAKRA1         = GetSpellInfo(81206)  --"Chakra Sanctuary"
+  --SMARTBUFF_CHAKRA2         = GetSpellInfo(81208)  --"Chakra Serenity"
+  --SMARTBUFF_CHAKRA3         = GetSpellInfo(81209)  --"Chakra Chastise"
+  -- Priest buff links
+  --S.LinkPriestChakra        = { SMARTBUFF_CHAKRA1, SMARTBUFF_CHAKRA2, SMARTBUFF_CHAKRA3 }; 
+
+  SMARTBUFF_PWFR1           = GetSpellInfo(1243); --"Power Word: Fortitude (Rank 1)"
+  SMARTBUFF_PWFR2           = GetSpellInfo(1244); --"Power Word: Fortitude (Rank 2)"
+  SMARTBUFF_PWFR3           = GetSpellInfo(1245); --"Power Word: Fortitude (Rank 3)"
+  SMARTBUFF_PWFR4           = GetSpellInfo(2791); --"Power Word: Fortitude (Rank 4)"
+  SMARTBUFF_PWFR5           = GetSpellInfo(10937); --"Power Word: Fortitude (Rank 5)"
+  SMARTBUFF_PWFR6           = GetSpellInfo(10938); --"Power Word: Fortitude (Rank 6)"
+
+  SMARTBUFF_IPWFR1           = GetSpellInfo(14749); --"Improved Power Word: Fortitude (Rank 1)"
+  SMARTBUFF_IPWFR2           = GetSpellInfo(14767); --"Improved Power Word: Fortitude (Rank 2)"
+
+  -- Classic "Prayer of Fortitude" Ranks
+  SMARTBUFF_POFR1    		 = GetSpellInfo(21562); --"Prayer of Fortitude (Rank 1)"
+  SMARTBUFF_POFR2    		 = GetSpellInfo(21564); --"Prayer of Fortitude (Rank 2)"
+
+  SMARTBUFF_INNERFIRER1     = GetSpellInfo(588); --"Inner Fire (Rank 1)"
+  SMARTBUFF_INNERFIRER2     = GetSpellInfo(7128); --"Inner Fire (Rank 2)"
+  SMARTBUFF_INNERFIRER3     = GetSpellInfo(602); --"Inner Fire (Rank 3)"
+  SMARTBUFF_INNERFIRER4     = GetSpellInfo(1006); --"Inner Fire (Rank 4)"
+  SMARTBUFF_INNERFIRER5     = GetSpellInfo(10951); --"Inner Fire (Rank 5)"
+  SMARTBUFF_INNERFIRER6     = GetSpellInfo(10952); --"Inner Fire (Rank 6)"
+
+  SMARTBUFF_IMPINNERFIRER1     = GetSpellInfo(14747); --"Inner Fire (Rank 1)"
+  SMARTBUFF_IMPINNERFIRER2     = GetSpellInfo(14770); --"Inner Fire (Rank 2)"
+  SMARTBUFF_IMPINNERFIRER3     = GetSpellInfo(14771); --"Inner Fire (Rank 3)"
+
+  -- Classic "Shadow Protection" Ranks
+  SMARTBUFF_SWPR1     = GetSpellInfo(976); --"Shadow Protection (Rank 1)"
+  SMARTBUFF_SWPR2     = GetSpellInfo(10957); --"Shadow Protection (Rank 2)"
+  SMARTBUFF_SWPR3     = GetSpellInfo(10958); --"Shadow Protection (Rank 3)"
+
+  -- Classic "Prayer of Shadow Protection" Ranks
+  SMARTBUFF_PSWPR1     = GetSpellInfo(27683); --"SPrayer of Shadow Protection (Rank 1)"
+
+  -- Classic "Divine Spirit" Ranks
+  SMARTBUFF_DSR1     = GetSpellInfo(14752); --"Divine Spirit (Rank 1)"
+  SMARTBUFF_DSR2     = GetSpellInfo(14818); --"Divine Spirit (Rank 2)"
+  SMARTBUFF_DSR3     = GetSpellInfo(14819); --"Divine Spirit (Rank 3)"
+  SMARTBUFF_DSR4     = GetSpellInfo(27841); --"Divine Spirit (Rank 4)"
+  -- Classic "Prayer of Spirit" Ranks
+  SMARTBUFF_POSR1     = GetSpellInfo(27681); --"Prayer of Spirit (Rank 1)"
 
   
   -- Mage
-  SMARTBUFF_AI              = GetSpellInfo(1459);  --"Arcane Intellect"
-  SMARTBUFF_AB              = GetSpellInfo(23028); --"Arcane Brilliance"
-  SMARTBUFF_ICEARMOR        = GetSpellInfo(7302);  --"Ice Armor"
-  SMARTBUFF_FROSTARMOR      = GetSpellInfo(168);   --"Frost Armor"
-  SMARTBUFF_MAGEARMOR       = GetSpellInfo(6117);  --"Mage Armor"
-  SMARTBUFF_MOLTENARMOR     = GetSpellInfo(30482); --"Molten Armor"
-  SMARTBUFF_DAMPENMAGIC     = GetSpellInfo(604);   --"Dampen Magic"
-  SMARTBUFF_AMPLIFYMAGIC    = GetSpellInfo(1008);  --"Amplify Magic"
-  SMARTBUFF_MANASHIELD      = GetSpellInfo(1463);  --"Mana Shield"
-  SMARTBUFF_FIREWARD        = GetSpellInfo(543);   --"Fire Ward"
-  SMARTBUFF_FROSTWARD       = GetSpellInfo(6143);  --"Frost Ward"
-  SMARTBUFF_ICEBARRIER      = GetSpellInfo(11426); --"Ice Barrier"
+  SMARTBUFF_SLOWFALL        = GetSpellInfo(130);   --"Slow Fall"
   SMARTBUFF_COMBUSTION      = GetSpellInfo(11129); --"Combustion"
-  SMARTBUFF_ARCANEPOWER     = GetSpellInfo(12042); --"Arcane Power"
-  SMARTBUFF_PRESENCEOFMIND  = GetSpellInfo(12043); --"Presence of Mind"
-  SMARTBUFF_ICYVEINS        = GetSpellInfo(12472); --"Icy Veins"
-  SMARTBUFF_SUMMONWATERELE  = GetSpellInfo(31687); --"Summon Water Elemental"
-  SMARTBUFF_FOCUSMAGIC      = GetSpellInfo(54646); --"Focus Magic"
+  SMARTBUFF_CONJUREFOOD3    = GetSpellInfo(990); -- Conjure Food (Rank 3)
+  SMARTBUFF_CONJUREWATER3   = GetSpellInfo(5504); -- Conjure Water (Rank 3)
+  SMARTBUFF_CONJUREMANAAGATE= GetSpellInfo(759); -- Conjure Mana Agate
   
-  -- Mage chained
-  S.ChainMageArmor = { SMARTBUFF_ICEARMOR, SMARTBUFF_FROSTARMOR, SMARTBUFF_MAGEARMOR, SMARTBUFF_MOLTENARMOR };
+  -- Classic "Arcane Intellect" Ranks
+  SMARTBUFF_AIR1              = GetSpellInfo(1459);  --"Arcane Intellect (Rank 1)"
+  SMARTBUFF_AIR2              = GetSpellInfo(1460);  --"Arcane Intellect (Rank 2)"
+  SMARTBUFF_AIR3              = GetSpellInfo(1461);  --"Arcane Intellect (Rank 3)"
+  SMARTBUFF_AIR4              = GetSpellInfo(10156);  --"Arcane Intellect (Rank 4)"
+  SMARTBUFF_AIR5              = GetSpellInfo(10157);  --"Arcane Intellect (Rank 5)"
+
+  -- Classic "Arcane Brilliance" Ranks
+  SMARTBUFF_ABR1              = GetSpellInfo(23028);  --"Arcane Brilliance (Rank 1)"
+
+  -- Classic "Frost Armor" Ranks
+  SMARTBUFF_FROSTARMORR1      = GetSpellInfo(168);  --"Frost Armor (Rank 1)"
+  SMARTBUFF_FROSTARMORR2      = GetSpellInfo(7300);  --"Frost Armor (Rank 2)"
+  SMARTBUFF_FROSTARMORR3      = GetSpellInfo(7301);  --"Frost Armor (Rank 3)"
+
+  -- Classic "Ice Armor" Ranks
+  SMARTBUFF_ICEARMORR1      = GetSpellInfo(168);  --"Ice Armor (Rank 1)"
+  SMARTBUFF_ICEARMORR2      = GetSpellInfo(7300);  --"Ice Armor (Rank 2)"
+  SMARTBUFF_ICEARMORR3      = GetSpellInfo(7301);  --"Ice Armor (Rank 3)"
+
+  -- Classic "Mage Armor" Ranks
+  SMARTBUFF_MAGEARMORR1      = GetSpellInfo(6117);  --"Mage Armor (Rank 1)"
+  SMARTBUFF_MAGEARMORR2      = GetSpellInfo(22782);  --"Mage Armor (Rank 2)"
+  SMARTBUFF_MAGEARMORR3      = GetSpellInfo(22783);  --"Mage Armor (Rank 3)"
+
+  -- Classic "Fire Ward" Ranks
+  SMARTBUFF_FIREWARDR1      = GetSpellInfo(543);  --"Fire Ward (Rank 1)"
+  SMARTBUFF_FIREWARDR2      = GetSpellInfo(8457);  --"Fire Ward (Rank 2)"
+  SMARTBUFF_FIREWARDR3      = GetSpellInfo(8458);  --"Fire Ward (Rank 3)"
+  SMARTBUFF_FIREWARDR4      = GetSpellInfo(10223);  --"Fire Ward (Rank 4)"
+  SMARTBUFF_FIREWARDR5      = GetSpellInfo(10225);  --"Fire Ward (Rank 5)"
+
+  -- Classic "Frost Ward" Ranks
+  SMARTBUFF_FROSTWARDR1      = GetSpellInfo(6143);  --"Frost Ward (Rank 1)"
+  SMARTBUFF_FROSTWARDR2      = GetSpellInfo(8461);  --"Frost Ward (Rank 2)"
+  SMARTBUFF_FROSTWARDR3      = GetSpellInfo(8462);  --"Frost Ward (Rank 3)"
+  SMARTBUFF_FROSTWARDR4      = GetSpellInfo(10177);  --"Frost Ward (Rank 4)"
+  SMARTBUFF_FROSTWARDR5      = GetSpellInfo(28609);  --"Frost Ward (Rank 5)"
+
+  -- Classic "Mana Shield" Ranks
+  SMARTBUFF_MANASHIELDR1      = GetSpellInfo(1463);  --"Mana Shield (Rank 1)"
+  SMARTBUFF_MANASHIELDR2      = GetSpellInfo(8494);  --"Mana Shield (Rank 2)"
+  SMARTBUFF_MANASHIELDR3      = GetSpellInfo(8495);  --"Mana Shield (Rank 3)"
+  SMARTBUFF_MANASHIELDR4      = GetSpellInfo(10191);  --"Mana Shield (Rank 4)"
+  SMARTBUFF_MANASHIELDR5      = GetSpellInfo(10192);  --"Mana Shield (Rank 5)"
+  SMARTBUFF_MANASHIELDR6      = GetSpellInfo(10193);  --"Mana Shield (Rank 6)"
+
+  -- Classic "Ice Barrier" Ranks
+  SMARTBUFF_ICEBARRIERR1      = GetSpellInfo(11426);  --"Ice Barrier (Rank 1)"
+  SMARTBUFF_ICEBARRIERR2      = GetSpellInfo(13031);  --"Ice Barrier (Rank 2)"
+  SMARTBUFF_ICEBARRIERR3      = GetSpellInfo(13032);  --"Ice Barrier (Rank 3)"
+  SMARTBUFF_ICEBARRIERR4      = GetSpellInfo(13033);  --"Ice Barrier (Rank 4)"
+  
+  -- Mage buff links
+  S.ChainMageArmor = { SMARTBUFF_FROSTARMORR1, SMARTBUFF_FROSTARMORR2, SMARTBUFF_FROSTARMORR3,
+                       SMARTBUFF_MAGEARMORR1, SMARTBUFF_MAGEARMORR2, SMARTBUFF_MAGEARMORR3,
+                       SMARTBUFF_ICEARMORR1, SMARTBUFF_ICEARMORR2, SMARTBUFF_ICEARMORR3, SMARTBUFF_ICEARMORR4,
+                      };
   
   
   -- Warlock
@@ -723,57 +845,162 @@ function SMARTBUFF_InitSpellList()
   -- Druid
   if (SMARTBUFF_PLAYERCLASS == "DRUID") then
     SMARTBUFF_BUFFLIST = {
-      {SMARTBUFF_MOTW, 30, SMARTBUFF_CONST_GROUP, {1,10,20,30,40,50,60}, "WPET;DKPET", nil, nil, SMARTBUFF_GOTW, 60, {50,60}, {SMARTBUFF_WILDBERRIES,SMARTBUFF_WILDTHORNROOT}},
-      {SMARTBUFF_IMPTHORNS, 10, SMARTBUFF_CONST_GROUP, {6,14}, "HUNTER;ROGUE;MAGE;PRIEST;PALADIN;WARLOCK;WPET;DKPET", S.LinkDruidThorns},
-      {SMARTBUFF_THORNS, 10, SMARTBUFF_CONST_GROUP, {6,14,24,34,44,54}, "HUNTER;ROGUE;MAGE;PRIEST;PALADIN;WARLOCK;WPET;DKPET", S.LinkDruidThorns},
-      {SMARTBUFF_OMENOFCLARITY, 10, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_BARKSKIN, 0.25, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_NATURESGRASP, 0.75, SMARTBUFF_CONST_FORCESELF},
-      {SMARTBUFF_TIGERSFURY, 0.1, SMARTBUFF_CONST_SELF, nil, SMARTBUFF_DRUID_CAT},
-      {SMARTBUFF_SAVAGEROAR, 0.15, SMARTBUFF_CONST_SELF, nil, SMARTBUFF_DRUID_CAT},
       {SMARTBUFF_DRUID_MOONKIN, -1, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_DRUID_TREE, -1, SMARTBUFF_CONST_SELF}, 
+      {SMARTBUFF_DRUID_TREANT, -1, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_DRUID_BEAR, -1, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_DRUID_CAT, -1, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_DRUID_TREE, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MOTW, 60, SMARTBUFF_CONST_GROUP, {30}, "WPET;DKPET"},
+      -- Classic "Mark of the Wild" Ranks
+      {SMARTBUFF_MOTWR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_MOTWR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_MOTWR3, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_MOTWR4, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_MOTWR5, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_MOTWR6, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_MOTWR7, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      -- Classic "Mark of the Wild" Ranks
+      -- Classic "Gift of the Wild" Ranks
+      {SMARTBUFF_GOTWR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_GOTWR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      -- Classic "Gift of the Wild" Ranks
+      -- Classic "Thorns" Ranks
+      {SMARTBUFF_THORNSR1, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_THORNSR2, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_THORNSR3, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_THORNSR4, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_THORNSR5, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_THORNSR6, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      -- Classic "Thorns" Ranks
+      -- Classic "Improved Thorns" Ranks
+      {SMARTBUFF_IMPTHORNSR1, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_IMPTHORNSR2, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      {SMARTBUFF_IMPTHORNSR3, 0.5, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkDruid},
+      -- Classic "Improved Thorns" Ranks
+      -- Classic "Nature's Grasp" Ranks
+      {SMARTBUFF_NGRASPR1, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_NGRASPR2, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_NGRASPR3, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_NGRASPR4, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_NGRASPR5, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_NGRASPR6, 30, SMARTBUFF_CONST_SELF},
+      -- Classic "Nature's Grasp" Ranks
       {SMARTBUFF_CENARIONWARD, 0.5, SMARTBUFF_CONST_GROUP, {1}, "WARRIOR;DRUID;SHAMAN;HUNTER;ROGUE;MAGE;PRIEST;PALADIN;WARLOCK;DEATHKNIGHT;MONK;DEMONHUNTER"},
+      {SMARTBUFF_BARKSKIN, 0.25, SMARTBUFF_CONST_FORCESELF},
+      {SMARTBUFF_TIGERSFURY, 0.1, SMARTBUFF_CONST_SELF, nil, SMARTBUFF_DRUID_CAT},
+      {SMARTBUFF_SAVAGEROAR, 0.15, SMARTBUFF_CONST_SELF, nil, SMARTBUFF_DRUID_CAT}
     };
   end
   
-  -- Priest
+ -- Priest
   if (SMARTBUFF_PLAYERCLASS == "PRIEST") then
     SMARTBUFF_BUFFLIST = {
-      {SMARTBUFF_PWF, 30, SMARTBUFF_CONST_GROUP, {1,12,24,36,48,60}, "WPET", nil, nil, SMARTBUFF_POF, 60, {48,60}, {SMARTBUFF_HOLYCANDLE,SMARTBUFF_SACREDCANDLE}},
-      {SMARTBUFF_SP, 10, SMARTBUFF_CONST_GROUP, {30,42,56}, "WPET", nil, nil, SMARTBUFF_POSP, 20, {56}, {SMARTBUFF_SACREDCANDLE}},
-      {SMARTBUFF_INNERFIRE, 10, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_DS, 30, SMARTBUFF_CONST_GROUP, {40,42,54,60}, "ROGUE;WARRIOR;HPET;WPET", nil, nil, SMARTBUFF_POS, 60, {60}, {SMARTBUFF_SACREDCANDLE}},
-      {SMARTBUFF_PWS, 0.5, SMARTBUFF_CONST_GROUP, {6,12,18,24,30,36,42,48,54,60}, "MAGE;WARLOCK;ROGUE;PALADIN;WARRIOR;DRUID;HUNTER;SHAMAN;HPET;WPET"},
       {SMARTBUFF_SHADOWFORM, -1, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_FEARWARD, 10, SMARTBUFF_CONST_GROUP, {20}},
-      {SMARTBUFF_ELUNESGRACE, 0.25, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_FEEDBACK, 0.25, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_SHADOWGUARD, 10, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_TOUCHOFWEAKNESS, 10, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_INNERFOCUS, -1, SMARTBUFF_CONST_SELF}  
+      {SMARTBUFF_VAMPIRICEMBRACE, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_PWF, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_PWFR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_PWFR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_PWFR3, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_PWFR4, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_PWFR5, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_PWFR6, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_IPWFR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_IPWFR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      -- Classic "Prayer of Fortitude" Ranks
+      {SMARTBUFF_POFR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      {SMARTBUFF_POFR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSta},
+      -- Classic "Prayer of Fortitude" Ranks
+      {SMARTBUFF_PWS, 0.5, SMARTBUFF_CONST_GROUP, {6}, "MAGE;WARLOCK;ROGUE;PALADIN;WARRIOR;DRUID;HUNTER;SHAMAN;DEATHKNIGHT;MONK;DEMONHUNTER;HPET;WPET;DKPET"},
+      {SMARTBUFF_FEARWARD, 3, SMARTBUFF_CONST_GROUP, {54}, "HPET;WPET;DKPET"},
+      {SMARTBUFF_LEVITATE, 2, SMARTBUFF_CONST_GROUP, {34}, "HPET;WPET;DKPET"},
+      {SMARTBUFF_CHAKRA1, 0.5, SMARTBUFF_CONST_SELF, nil, nil, S.LinkPriestChakra},
+      {SMARTBUFF_CHAKRA2, 0.5, SMARTBUFF_CONST_SELF, nil, nil, S.LinkPriestChakra},
+      {SMARTBUFF_CHAKRA3, 0.5, SMARTBUFF_CONST_SELF, nil, nil, S.LinkPriestChakra},
+      {SMARTBUFF_LIGHTWELL, 3, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_INNERFIRER1, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_INNERFIRER2, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_INNERFIRER3, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_INNERFIRER4, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_INNERFIRER5, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_INNERFIRER6, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_IMPINNERFIRER1, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_IMPINNERFIRER2, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_IMPINNERFIRER3, 30, SMARTBUFF_CONST_SELF},
+      -- Classic "Shadow Protection"
+      {SMARTBUFF_SWPR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_SWPR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_SWPR3, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      -- Classic "Shadow Protection"
+      -- Classic "Prayer of Shadow Protection"
+      {SMARTBUFF_PSWPR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      -- Classic "Prayer of Shadow Protection"
+      -- Classic "Divine Spirit"
+      {SMARTBUFF_DSR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_DSR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_DSR3, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      {SMARTBUFF_DSR4, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      -- Classic "Divine Spirit"
+      -- Classic "Prayer of Spirit" Ranks
+      {SMARTBUFF_POSR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkStats},
+      -- Classic "Prayer of Spirit" Ranks
     };
   end
   
   -- Mage
   if (SMARTBUFF_PLAYERCLASS == "MAGE") then
     SMARTBUFF_BUFFLIST = {
-      {SMARTBUFF_AI, 30, SMARTBUFF_CONST_GROUP, {1,14,28,42,56}, "ROGUE;WARRIOR;HPET;WPET", nil, nil, SMARTBUFF_AB, 60, {56}, {SMARTBUFF_ARCANEPOWDER}},
-      {SMARTBUFF_FOCUSMAGIC, 30, SMARTBUFF_CONST_GROUP, {20}, "WARRIOR;DRUID;SHAMAN;HUNTER;ROGUE;MAGE;PRIEST;PALADIN;WARLOCK;DEATHKNIGHT;HPET;WPET"},
-      {SMARTBUFF_ICEARMOR, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
-      {SMARTBUFF_FROSTARMOR, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
-      {SMARTBUFF_MAGEARMOR, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
-      {SMARTBUFF_MOLTENARMOR, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
-      {SMARTBUFF_DAMPENMAGIC, 10, SMARTBUFF_CONST_GROUP, {12,24,36,48,60}, "HPET;WPET"},
-      {SMARTBUFF_AMPLIFYMAGIC, 10, SMARTBUFF_CONST_GROUP, {18,30,42,54}, "HPET;WPET"},
-      {SMARTBUFF_MANASHIELD, 1, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_FIREWARD, 0.5, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_FROSTWARD, 0.5, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_ICEBARRIER, 1, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_CONJUREFOOD3, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD3},
+      {SMARTBUFF_CONJUREWATER3, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER3},
+      {SMARTBUFF_CONJUREMANAAGATE, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_MANAAGATE},
+      -- Classic "Arcane Intellect"
+      {SMARTBUFF_AIR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
+      {SMARTBUFF_AIR2, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
+      {SMARTBUFF_AIR3, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
+      {SMARTBUFF_AIR4, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
+      {SMARTBUFF_AIR5, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
+      -- Classic "Arcane Brilliance"
+      {SMARTBUFF_ABR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
+      -- Classic "Frost Armor"
+      {SMARTBUFF_FROSTARMORR1, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_FROSTARMORR2, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_FROSTARMORR3, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      -- Classic "Ice Armor"
+      {SMARTBUFF_ICEARMORR1, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEARMORR2, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEARMORR3, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEARMORR4, 30, SMARTBUFF_CONST_SELF},
+      -- Classic "Mage Armor"
+      {SMARTBUFF_MAGEARMORR1, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MAGEARMORR2, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MAGEARMORR3, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_SLOWFALL, 0.5, SMARTBUFF_CONST_GROUP, {32}, "HPET;WPET;DKPET"},
+      {SMARTBUFF_MANASHIELD, 0.5, SMARTBUFF_CONST_SELF},
+      -- Classic "Mana Shield" Ranks
+      {SMARTBUFF_MANASHIELDR1, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MANASHIELDR2, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MANASHIELDR3, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MANASHIELDR4, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MANASHIELDR5, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MANASHIELDR6, 0.5, SMARTBUFF_CONST_SELF},
+      -- Classic "Ice Barrier" Ranks
+      {SMARTBUFF_ICEBARRIERR1, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEBARRIERR2, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEBARRIERR3, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEBARRIERR4, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEWARD, 0.5, SMARTBUFF_CONST_GROUP, {45}, "HPET;WPET;DKPET"},
+      -- Classic "Fire Ward"
+      {SMARTBUFF_FIREWARDR1, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FIREWARDR2, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FIREWARDR3, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FIREWARDR4, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FIREWARDR5, 0.5, SMARTBUFF_CONST_SELF},
+      -- Classic "Fire Ward"
+      {SMARTBUFF_FROSTWARDR1, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FROSTWARDR2, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FROSTWARDR3, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FROSTWARDR4, 0.5, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_FROSTWARDR5, 0.5, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_COMBUSTION, -1, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_ICYVEINS, 0.33, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_ARCANEPOWER, 0.25, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_PRESENCEOFMIND, 0.165, SMARTBUFF_CONST_SELF}
     };
   end
   
