@@ -219,13 +219,25 @@ function SMARTBUFF_InitItemList()
   SMARTBUFF_MIGHTFISHSTEAK = GetItemInfo(13934); --"Mightfish Steak"
   SMARTBUFF_DIRGESKICKINCHIMAEROKCHOPS = GetItemInfo(21023); --"Dirge's Kickin' Chimaerok Chops"
   
+  -- Conjured mage water IDs
+  SMARTBUFF_CONJUREDWATER1      = GetItemInfo(5350) -- Conjured Water
+  SMARTBUFF_CONJUREDWATER2      = GetItemInfo(2288) -- Conjured Fresh Water
+  SMARTBUFF_CONJUREDWATER3      = GetItemInfo(2136) -- Conjured Purified Water
+  SMARTBUFF_CONJUREDWATER4      = GetItemInfo(3772) -- Conjured Spring Water
+  SMARTBUFF_CONJUREDWATER5      = GetItemInfo(8077) -- Conjured Mineral Water
+  SMARTBUFF_CONJUREDWATER6		  = GetItemInfo(8078) -- Conjured Sparkling Water
+  SMARTBUFF_CONJUREDWATER7      = GetItemInfo(8079) -- Conjured Crystal Water
   -- Conjured mage food IDs
-  --SMARTBUFF_CONJUREDMANA        = GetItemInfo(113509); --"Conjured Mana Buns"
-  SMARTBUFF_CONJUREDWATER3		  = GetItemInfo(2136) -- Conjured Purified Water
-  SMARTBUFF_CONJUREDFOOD3		    = GetItemInfo(1114) -- Conjured Rye
+  SMARTBUFF_CONJUREDFOOD1       = GetItemInfo(5349) -- Conjured Muffin
+  SMARTBUFF_CONJUREDFOOD2       = GetItemInfo(1113) -- Conjured Bread
+  SMARTBUFF_CONJUREDFOOD3       = GetItemInfo(1114) -- Conjured Rye
+  SMARTBUFF_CONJUREDFOOD4       = GetItemInfo(1487) -- Conjured Pumpernickle
+  SMARTBUFF_CONJUREDFOOD5       = GetItemInfo(8075) -- Conjured Sourdough
+  SMARTBUFF_CONJUREDFOOD6       = GetItemInfo(8076) -- Conjured Sweet Roll
+  SMARTBUFF_CONJUREDFOOD7       = GetItemInfo(22895) -- Conjured Cinnamon Roll
   
-  S.MageFood = { SMARTBUFF_CONJUREDFOOD3 }
-  S.MageWater = { SMARTBUFF_CONJUREDWATER3 }
+  S.MageFood = { SMARTBUFF_CONJUREDFOOD1, SMARTBUFF_CONJUREDFOOD2, SMARTBUFF_CONJUREDFOOD3, SMARTBUFF_CONJUREDFOOD4, SMARTBUFF_CONJUREDFOOD5, SMARTBUFF_CONJUREDFOOD6, SMARTBUFF_CONJUREDFOOD7 }
+  S.MageWater = { SMARTBUFF_CONJUREDWATER1, SMARTBUFF_CONJUREDWATER2, SMARTBUFF_CONJUREDWATER3, SMARTBUFF_CONJUREDWATER4, SMARTBUFF_CONJUREDWATER5, SMARTBUFF_CONJUREDWATER6, SMARTBUFF_CONJUREDWATER7 }
 
   -- Scrolls
   SMARTBUFF_SOAGILITY1          = GetItemInfo(3012);  --"Scroll of Agility I"
@@ -477,8 +489,20 @@ function SMARTBUFF_InitSpellIDs()
   -- Mage
   SMARTBUFF_SLOWFALL        = GetSpellInfo(130);   --"Slow Fall"
   SMARTBUFF_COMBUSTION      = GetSpellInfo(11129); --"Combustion"
+  SMARTBUFF_CONJUREFOOD1    = GetSpellInfo(587); -- Conjure Food (Rank 1)
+  SMARTBUFF_CONJUREFOOD2    = GetSpellInfo(597); -- Conjure Food (Rank 2)
   SMARTBUFF_CONJUREFOOD3    = GetSpellInfo(990); -- Conjure Food (Rank 3)
-  SMARTBUFF_CONJUREWATER3   = GetSpellInfo(5504); -- Conjure Water (Rank 3)
+  SMARTBUFF_CONJUREFOOD4    = GetSpellInfo(6129); -- Conjure Food (Rank 4)
+  SMARTBUFF_CONJUREFOOD5    = GetSpellInfo(10144); -- Conjure Food (Rank 5)
+  SMARTBUFF_CONJUREFOOD6    = GetSpellInfo(10145); -- Conjure Food (Rank 6)
+  SMARTBUFF_CONJUREFOOD7    = GetSpellInfo(28612); -- Conjure Food (Rank 7)
+  SMARTBUFF_CONJUREWATER1   = GetSpellInfo(5504); -- Conjure Water (Rank 1)
+  SMARTBUFF_CONJUREWATER2   = GetSpellInfo(5505); -- Conjure Water (Rank 2)
+  SMARTBUFF_CONJUREWATER3   = GetSpellInfo(5506); -- Conjure Water (Rank 3)
+  SMARTBUFF_CONJUREWATER4   = GetSpellInfo(6127); -- Conjure Water (Rank 4)
+  SMARTBUFF_CONJUREWATER5   = GetSpellInfo(10138); -- Conjure Water (Rank 5)
+  SMARTBUFF_CONJUREWATER6   = GetSpellInfo(10139); -- Conjure Water (Rank 6)
+  SMARTBUFF_CONJUREWATER7   = GetSpellInfo(10140); -- Conjure Water (Rank 7)
   SMARTBUFF_CONJUREMANAAGATE= GetSpellInfo(759); -- Conjure Mana Agate
   
   -- Classic "Arcane Intellect" Ranks
@@ -497,9 +521,10 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_FROSTARMORR3      = GetSpellInfo(7301);  --"Frost Armor (Rank 3)"
 
   -- Classic "Ice Armor" Ranks
-  SMARTBUFF_ICEARMORR1      = GetSpellInfo(168);  --"Ice Armor (Rank 1)"
-  SMARTBUFF_ICEARMORR2      = GetSpellInfo(7300);  --"Ice Armor (Rank 2)"
-  SMARTBUFF_ICEARMORR3      = GetSpellInfo(7301);  --"Ice Armor (Rank 3)"
+  SMARTBUFF_ICEARMORR1      = GetSpellInfo(7302);  --"Ice Armor (Rank 1)"
+  SMARTBUFF_ICEARMORR2      = GetSpellInfo(7320);  --"Ice Armor (Rank 2)"
+  SMARTBUFF_ICEARMORR3      = GetSpellInfo(10219);  --"Ice Armor (Rank 3)"
+  SMARTBUFF_ICEARMORR4      = GetSpellInfo(10220);  --"Ice Armor (Rank 3)"
 
   -- Classic "Mage Armor" Ranks
   SMARTBUFF_MAGEARMORR1      = GetSpellInfo(6117);  --"Mage Armor (Rank 1)"
@@ -949,8 +974,20 @@ function SMARTBUFF_InitSpellList()
   -- Mage
   if (SMARTBUFF_PLAYERCLASS == "MAGE") then
     SMARTBUFF_BUFFLIST = {
-      {SMARTBUFF_CONJUREFOOD3, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD3},
-      {SMARTBUFF_CONJUREWATER3, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER3},
+      {SMARTBUFF_CONJUREFOOD1, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD1, nil, S.MageFood},
+      {SMARTBUFF_CONJUREFOOD2, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD2, nil, S.MageFood},
+      {SMARTBUFF_CONJUREFOOD3, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD3, nil, S.MageFood},
+      {SMARTBUFF_CONJUREFOOD4, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD4, nil, S.MageFood},
+      {SMARTBUFF_CONJUREFOOD5, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD5, nil, S.MageFood},
+      {SMARTBUFF_CONJUREFOOD6, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD6, nil, S.MageFood},
+      {SMARTBUFF_CONJUREFOOD7, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDFOOD7, nil, S.MageFood},
+      {SMARTBUFF_CONJUREWATER1, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER1, nil, S.MageWater},
+      {SMARTBUFF_CONJUREWATER2, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER2, nil, S.MageWater},
+      {SMARTBUFF_CONJUREWATER3, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER3, nil, S.MageWater},
+      {SMARTBUFF_CONJUREWATER4, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER4, nil, S.MageWater},
+      {SMARTBUFF_CONJUREWATER5, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER5, nil, S.MageWater},
+      {SMARTBUFF_CONJUREWATER6, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER6, nil, S.MageWater},
+      {SMARTBUFF_CONJUREWATER7, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_CONJUREDWATER7, nil, S.MageWater},
       {SMARTBUFF_CONJUREMANAAGATE, -1, SMARTBUFF_CONST_ITEM, nil, SMARTBUFF_MANAAGATE},
       -- Classic "Arcane Intellect"
       {SMARTBUFF_AIR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
@@ -961,20 +998,19 @@ function SMARTBUFF_InitSpellList()
       -- Classic "Arcane Brilliance"
       {SMARTBUFF_ABR1, 60, SMARTBUFF_CONST_GROUP, {14}, "HPET;WPET;DKPET", S.LinkSInt},
       -- Classic "Frost Armor"
-      {SMARTBUFF_FROSTARMORR1, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
-      {SMARTBUFF_FROSTARMORR2, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
-      {SMARTBUFF_FROSTARMORR3, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_FROSTARMORR1, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_FROSTARMORR2, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_FROSTARMORR3, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
       -- Classic "Ice Armor"
-      {SMARTBUFF_ICEARMORR1, 30, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_ICEARMORR2, 30, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_ICEARMORR3, 30, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_ICEARMORR4, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_ICEARMORR1, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_ICEARMORR2, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_ICEARMORR3, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_ICEARMORR4, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
       -- Classic "Mage Armor"
-      {SMARTBUFF_MAGEARMORR1, 30, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_MAGEARMORR2, 30, SMARTBUFF_CONST_SELF},
-      {SMARTBUFF_MAGEARMORR3, 30, SMARTBUFF_CONST_SELF},
+      {SMARTBUFF_MAGEARMORR1, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_MAGEARMORR2, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
+      {SMARTBUFF_MAGEARMORR3, 30, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainMageArmor},
       {SMARTBUFF_SLOWFALL, 0.5, SMARTBUFF_CONST_GROUP, {32}, "HPET;WPET;DKPET"},
-      {SMARTBUFF_MANASHIELD, 0.5, SMARTBUFF_CONST_SELF},
       -- Classic "Mana Shield" Ranks
       {SMARTBUFF_MANASHIELDR1, 0.5, SMARTBUFF_CONST_SELF},
       {SMARTBUFF_MANASHIELDR2, 0.5, SMARTBUFF_CONST_SELF},
