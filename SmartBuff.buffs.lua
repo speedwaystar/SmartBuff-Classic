@@ -587,7 +587,9 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_CREATESS        = GetSpellInfo(20755); --"Create Soulstone"
   SMARTBUFF_CREATESSGRE     = GetSpellInfo(20756); --"Create Soulstone (Greater)"
   SMARTBUFF_CREATESSMAJ     = GetSpellInfo(20757); --"Create Soulstone (Major)"
-  
+  SMARTBUFF_SUMMONIMP       = GetSpellInfo(688);  -- Summon Imp
+  SMARTBUFF_SUMMONVOID      = GetSpellInfo(697); -- Summon Voidwalker
+
   -- Warlock chained
   S.ChainWarlockArmor = { SMARTBUFF_DEMONSKIN, SMARTBUFF_DEMONARMOR, SMARTBUFF_FELARMOR };
 
@@ -604,6 +606,7 @@ function SMARTBUFF_InitSpellIDs()
   SMARTBUFF_AOTP            = GetSpellInfo(13159); --"Aspect of the Pack"
   SMARTBUFF_AOTV            = GetSpellInfo(34074); --"Aspect of the Viper"
   SMARTBUFF_AOTDH           = GetSpellInfo(61846); --"Aspect of the Dragonhawk"
+  SMARTBUFF_CALLPET         = GetSpellInfo(883);   -- Call Pet
   
   -- Hunter chained
   S.ChainAspects  = { SMARTBUFF_AOTH,SMARTBUFF_AOTM,SMARTBUFF_AOTW,SMARTBUFF_AOTB,SMARTBUFF_AOTC,SMARTBUFF_AOTP,SMARTBUFF_AOTV,SMARTBUFF_AOTDH };
@@ -1075,7 +1078,10 @@ function SMARTBUFF_InitSpellList()
       {SMARTBUFF_FIRESTONE4, 60, SMARTBUFF_CONST_INV},
       {SMARTBUFF_FIRESTONE3, 60, SMARTBUFF_CONST_INV},
       {SMARTBUFF_FIRESTONE2, 60, SMARTBUFF_CONST_INV},
-      {SMARTBUFF_FIRESTONE1, 60, SMARTBUFF_CONST_INV}
+      {SMARTBUFF_FIRESTONE1, 60, SMARTBUFF_CONST_INV},
+      {SMARTBUFF_SUMMONIMP, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+      {SMARTBUFF_SUMMONVOID, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
+
     };
   end
 
@@ -1091,7 +1097,8 @@ function SMARTBUFF_InitSpellList()
       {SMARTBUFF_AOTW, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainAspects},
       {SMARTBUFF_AOTB, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainAspects},
       {SMARTBUFF_AOTC, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainAspects},
-      {SMARTBUFF_AOTP, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainAspects}
+      {SMARTBUFF_AOTP, -1, SMARTBUFF_CONST_SELF, nil, nil, nil, S.ChainAspects},
+      {SMARTBUFF_CALLPET, -1, SMARTBUFF_CONST_SELF, nil, S.CheckPet},
     };
   end
 
@@ -1273,6 +1280,7 @@ function SMARTBUFF_InitSpellList()
 
   -- Tracking
   SMARTBUFF_TRACKING = {
+ --[[
     {SMARTBUFF_FINDMINERALS, -1, SMARTBUFF_CONST_TRACK},
     {SMARTBUFF_FINDHERBS, -1, SMARTBUFF_CONST_TRACK},
     {SMARTBUFF_FINDTREASURE, -1, SMARTBUFF_CONST_TRACK},
@@ -1286,6 +1294,7 @@ function SMARTBUFF_InitSpellList()
     {SMARTBUFF_TRACKDRAGONKIN, -1, SMARTBUFF_CONST_TRACK},
     {SMARTBUFF_SENSEDEMONS, -1, SMARTBUFF_CONST_TRACK},
     {SMARTBUFF_SENSEUNDEAD, -1, SMARTBUFF_CONST_TRACK}
+ --]]
   };
 
   -- Racial
