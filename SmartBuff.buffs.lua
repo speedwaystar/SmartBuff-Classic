@@ -1383,6 +1383,7 @@ function SMARTBUFF_InitSpellList()
   AddItem(153023, 224001,  60); -- Lightforged Augment Rune
   AddItem(129149, 193333,  60); -- Helheim Spirit Memory
   AddItem(122304, 138927,  10); -- Fandral's Seed Pouch
+  AddItem(  5462,   6405,   3); -- Dartol's Rod of Transformation
   
   -- Potions
   SMARTBUFF_POTION = {
